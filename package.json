@@ -1,0 +1,19 @@
+{
+  "name": "connect",
+  "version": "1.0.0",
+  "description": "How to work mongoose with mongoDB & NodeJS and expressJS with NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebascarreram/connect.git"
+  },
+  "author": "Sebastian Carrera Medina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebascarreram/connect/issues"
+  },
+  "homepage": "https://github.com/sebascarreram/connect#readme"
+}
