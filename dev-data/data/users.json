@@ -1,0 +1,23 @@
+[
+  {
+    "id": 0,
+    "name": "Sebastian Carrera Medina",
+    "password": 123456,
+    "phone": 5234234,
+    "age": 26
+  },
+  {
+    "id": 1,
+    "name": "Sofia Carrera Medina",
+    "password": 123456,
+    "phone": 5234234,
+    "age": 17
+  },
+  {
+    "id": 2,
+    "name": "Sofia Carrera Medina",
+    "password": 123456,
+    "phone": 5234234,
+    "age": 17
+  }
+]
