@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/sebascarreram/connect/issues"
   },
-  "homepage": "https://github.com/sebascarreram/connect#readme"
+  "homepage": "https://github.com/sebascarreram/connect#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  }
 }
