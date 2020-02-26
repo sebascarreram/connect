@@ -7,11 +7,13 @@ const app = express();
 app.use(express.json());
 
 // READ ALL TOURS
+// JSON.parse() => it becomes a JavaScript object.
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
 // READ ALL USERS
+// JSON.parse() => it becomes a JavaScript object.
 const users = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/users.json`)
 );
