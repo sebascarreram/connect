@@ -17,33 +17,30 @@ const tours = JSON.parse(
 const users = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/users.json`)
 );
-
+//////
 // GET ALL TOURS -> GET method
-// http://127.0.0.1:3000/api/v1/tours
-app.get('/api/v1/tours', (req, res) => {
+const getAllTours = (req, res) => {
   // status 200 is succeeded
   res.status(200).json({
     status: '200',
     results: tours.length,
     data: { tours }
   });
-});
-
+};
+//////
 // GET ALL USERS -> GET method
-// http://127.0.0.1:3000/api/v1/users
-app.get('/api/v1/users', (req, res) => {
+const getAllUsers = (req, res) => {
   // status 200 is succeeded
   res.status(200).json({
     status: '200',
     results: users.length,
     data: { users }
   });
-});
+};
 
+//////
 // GET TOUR BY ID -> GET method
-// http://127.0.0.1:3000/api/v1/tours/5
-// id is a variable => e.g: id = 5.
-app.get('/api/v1/tours/:id', (req, res) => {
+const getTour = (req, res) => {
   // console.log(req.params); // To check or read http://expressjs.com/en/5x/api.html#req.params
 
   // To convert string to number
@@ -66,12 +63,11 @@ app.get('/api/v1/tours/:id', (req, res) => {
     status: 'Success found',
     data: { tour }
   });
-});
+};
 
+//////
 // GET USER BY ID -> GET method
-// http://127.0.0.1:3000/api/v1/tours/5
-// id is a variable => e.g: id = 5.
-app.get('/api/v1/users/:id', (req, res) => {
+const getUser = (req, res) => {
   // console.log(req.params); // To check or read http://expressjs.com/en/5x/api.html#req.params
 
   // To convert string to number
@@ -94,11 +90,11 @@ app.get('/api/v1/users/:id', (req, res) => {
     status: 'Success found',
     data: { user }
   });
-});
+};
 
+//////
 // Create a tour -> POST method
-// http://127.0.0.1:3000/api/v1/tours
-app.post('/api/v1/tours', (req, res) => {
+const createTour = (req, res) => {
   // console.log(req.body);
 
   const newId = tours[tours.length - 1].id + 1;
@@ -122,11 +118,11 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
-});
+};
 
+//////
 // Create a user -> POST method
-// http://127.0.0.1:3000/api/v1/users
-app.post('/api/v1/users', (req, res) => {
+const createUser = (req, res) => {
   // console.log(req.body); // Check it
 
   const newId = users[users.length - 1].id + 1;
@@ -150,12 +146,11 @@ app.post('/api/v1/users', (req, res) => {
       });
     }
   );
-});
+};
 
+//////
 // Update a tour by id -> PATCH method
-// http://127.0.0.1:3000/api/v1/tours/3
-// id = 3, it's selected for update data
-app.patch('/api/v1/tours/:id', (req, res) => {
+const udpateTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     // status 404 is NOT FOUND
     return res.status(404).json({
@@ -171,12 +166,11 @@ app.patch('/api/v1/tours/:id', (req, res) => {
       tour: '<Updated tour here...>'
     }
   });
-});
+};
 
+//////
 // Update a user by id -> PATCH method
-// http://127.0.0.1:3000/api/v1/users/3
-// id = 3, it's selected for update data
-app.patch('/api/v1/users/:id', (req, res) => {
+const updateUser = (req, res) => {
   if (req.params.id * 1 > users.length) {
     // status 404 is NOT FOUND
     return res.status(404).json({
@@ -192,12 +186,11 @@ app.patch('/api/v1/users/:id', (req, res) => {
       user: '<Updated user here...>'
     }
   });
-});
+};
 
+//////
 // Delete a tour by id -> DELETE method
-// http://127.0.0.1:3000/api/v1/tours/3
-// id = 3, it's selected for delete a data
-app.delete('/api/v1/tours/:id', (req, res) => {
+const deleteTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     // status 404 is NOT FOUND
     return res.status(404).json({
@@ -211,12 +204,11 @@ app.delete('/api/v1/tours/:id', (req, res) => {
     status: 'Deleted success',
     data: null
   });
-});
+};
 
+//////
 // Delete a user by id -> DELETE method
-// http://127.0.0.1:3000/api/v1/users/3
-// id = 3, it's selected for delete a data
-app.delete('/api/v1/users/:id', (req, res) => {
+const deleteUser = (req, res) => {
   if (req.params.id * 1 > users.length) {
     // status 404 is NOT FOUND
     return res.status(404).json({
@@ -230,7 +222,79 @@ app.delete('/api/v1/users/:id', (req, res) => {
     status: 'Deleted success',
     data: null
   });
-});
+};
+
+// ////// GET ALL TOURS -> GET method
+// // http://127.0.0.1:3000/api/v1/tours
+// app.get('/api/v1/tours', getAllTours);
+
+// ////// GET ALL USERS -> GET method
+// // http://127.0.0.1:3000/api/v1/users
+// app.get('/api/v1/users', getAllUsers);
+
+// // GET TOUR BY ID -> GET method
+// // http://127.0.0.1:3000/api/v1/tours/5
+// // id is a variable => e.g: id = 5.
+// app.get('/api/v1/tours/:id', getTour);
+
+// // GET USER BY ID -> GET method
+// // http://127.0.0.1:3000/api/v1/tours/5
+// // id is a variable => e.g: id = 5.
+// app.get('/api/v1/users/:id', getUser);
+
+// // Create a tour -> POST method
+// // http://127.0.0.1:3000/api/v1/tours
+// app.post('/api/v1/tours', createTour);
+
+// // Create a user -> POST method
+// // http://127.0.0.1:3000/api/v1/users
+// app.post('/api/v1/users', createUser);
+
+// // Update a tour by id -> PATCH method
+// // http://127.0.0.1:3000/api/v1/tours/3
+// // id = 3, it's selected for update data
+// app.patch('/api/v1/tours/:id', udpateTour);
+
+// // Update a user by id -> PATCH method
+// // http://127.0.0.1:3000/api/v1/users/3
+// // id = 3, it's selected for update data
+// app.patch('/api/v1/users/:id', updateUser);
+
+// // Delete a tour by id -> DELETE method
+// // http://127.0.0.1:3000/api/v1/tours/3
+// // id = 3, it's selected for delete a data
+// app.delete('/api/v1/tours/:id', deleteTour);
+
+// // Delete a user by id -> DELETE method
+// // http://127.0.0.1:3000/api/v1/users/3
+// // id = 3, it's selected for delete a data
+// app.delete('/api/v1/users/:id', deleteUser);
+
+//////////////
+/////// Tours
+app
+  .route('/api/v1/tours')
+  .get(getAllTours)
+  .post(createTour);
+
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .patch(udpateTour)
+  .delete(deleteTour);
+
+//////////////
+/////// Users
+app
+  .route('/api/v1/users')
+  .get(getAllUsers)
+  .post(createUser);
+
+app
+  .route('/api/v1/users/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
