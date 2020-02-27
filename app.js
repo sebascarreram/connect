@@ -152,6 +152,48 @@ app.post('/api/v1/users', (req, res) => {
   );
 });
 
+// Update a tour -> PATCH method
+// http://127.0.0.1:3000/api/v1/tours/3
+// id = 3, it's selected for update data
+app.patch('/api/v1/tours/:id', (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    // status 404 is NOT FOUND
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+
+  // status 200 is success
+  res.status(200).json({
+    status: 'Success',
+    data: {
+      tour: '<Updated tour here...>'
+    }
+  });
+});
+
+// Update a user -> PATCH method
+// http://127.0.0.1:3000/api/v1/users/3
+// id = 3, it's selected for update data
+app.patch('/api/v1/users/:id', (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    // status 404 is NOT FOUND
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+
+  // status 200 is success
+  res.status(200).json({
+    status: 'Success',
+    data: {
+      tour: '<Updated user here...>'
+    }
+  });
+});
+
 const port = 3000;
 // For connections on the specified host and port.
 // http://127.0.0.1:3000
