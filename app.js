@@ -40,6 +40,62 @@ app.get('/api/v1/users', (req, res) => {
   });
 });
 
+// GET TOUR BY ID -> GET method
+// http://127.0.0.1:3000/api/v1/tours/5
+// id is a variable => e.g: id = 5.
+app.get('/api/v1/tours/:id', (req, res) => {
+  // console.log(req.params); // To check or read http://expressjs.com/en/5x/api.html#req.params
+
+  // To convert string to number
+  const id = req.params.id * 1;
+
+  // Array.prototype.find() is returns the value of the first element in the provided array or read https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+  const tour = tours.find(el => el.id === id);
+
+  // If there isn't tour found or undefined so it's FALSE, to convert to TRUE because it's boolean
+  if (!tour) {
+    // status 404 is NOT FOUND
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+
+  // status 200 is succeeded
+  res.status(200).json({
+    status: 'Success found',
+    data: { tour }
+  });
+});
+
+// GET USER BY ID -> GET method
+// http://127.0.0.1:3000/api/v1/tours/5
+// id is a variable => e.g: id = 5.
+app.get('/api/v1/users/:id', (req, res) => {
+  // console.log(req.params); // To check or read http://expressjs.com/en/5x/api.html#req.params
+
+  // To convert string to number
+  const id = req.params.id * 1;
+
+  // Array.prototype.find() is returns the value of the first element in the provided array or read https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+  const user = users.find(el => el.id === id);
+
+  // If there isn't tour found or undefined so it's FALSE, to convert to TRUE because it's boolean
+  if (!user) {
+    // status 404 is NOT FOUND
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+
+  // status 200 is succeeded
+  res.status(200).json({
+    status: 'Success found',
+    data: { user }
+  });
+});
+
 // Create a tour -> POST method
 // http://127.0.0.1:3000/api/v1/tours
 app.post('/api/v1/tours', (req, res) => {
