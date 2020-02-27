@@ -152,7 +152,7 @@ app.post('/api/v1/users', (req, res) => {
   );
 });
 
-// Update a tour -> PATCH method
+// Update a tour by id -> PATCH method
 // http://127.0.0.1:3000/api/v1/tours/3
 // id = 3, it's selected for update data
 app.patch('/api/v1/tours/:id', (req, res) => {
@@ -173,11 +173,11 @@ app.patch('/api/v1/tours/:id', (req, res) => {
   });
 });
 
-// Update a user -> PATCH method
+// Update a user by id -> PATCH method
 // http://127.0.0.1:3000/api/v1/users/3
 // id = 3, it's selected for update data
 app.patch('/api/v1/users/:id', (req, res) => {
-  if (req.params.id * 1 > tours.length) {
+  if (req.params.id * 1 > users.length) {
     // status 404 is NOT FOUND
     return res.status(404).json({
       status: 'fail',
@@ -189,11 +189,51 @@ app.patch('/api/v1/users/:id', (req, res) => {
   res.status(200).json({
     status: 'Success',
     data: {
-      tour: '<Updated user here...>'
+      user: '<Updated user here...>'
     }
   });
 });
 
+// Delete a tour by id -> DELETE method
+// http://127.0.0.1:3000/api/v1/tours/3
+// id = 3, it's selected for delete a data
+app.delete('/api/v1/tours/:id', (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    // status 404 is NOT FOUND
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+
+  // status 204 is NO CONTENT to send for this request, but the headers may be useful.
+  res.status(204).json({
+    status: 'Deleted success',
+    data: null
+  });
+});
+
+// Delete a user by id -> DELETE method
+// http://127.0.0.1:3000/api/v1/users/3
+// id = 3, it's selected for delete a data
+app.delete('/api/v1/users/:id', (req, res) => {
+  if (req.params.id * 1 > users.length) {
+    // status 404 is NOT FOUND
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+
+  // status 204 is NO CONTENT to send for this request, but the headers may be useful.
+  res.status(204).json({
+    status: 'Deleted success',
+    data: null
+  });
+});
+
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 const port = 3000;
 // For connections on the specified host and port.
 // http://127.0.0.1:3000
