@@ -1,11 +1,35 @@
 const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// 1) MIDDLEWARE
+//
+// 'dev' -> Concise output colored by response status for development use.
+// status >= 500 // red
+// status >= 400 // yellow
+// status >= 300 // cyan
+// status >= 200 // green
+// e.g:
+// GET /api/v1/tours 200 5.674 ms - 8772 => 200 is color green in terminal
+// DELETE /api/v1/tours/103 404 0.408 ms - 40 => 404 is color yellow in terminal
+app.use(morgan('dev'));
+//
 // for application/json
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log('Hello from middleware ♥️');
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 // READ ALL TOURS
 // JSON.parse() => it becomes a JavaScript object.
 const tours = JSON.parse(
@@ -17,11 +41,17 @@ const tours = JSON.parse(
 const users = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/users.json`)
 );
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// 2) ROUTE HANDLERS
 //////
 // GET ALL TOURS -> GET method
 const getAllTours = (req, res) => {
+  console.log(req.requestTime);
   // status 200 is succeeded
   res.status(200).json({
+    requestedAt: req.requestTime,
     status: '200',
     results: tours.length,
     data: { tours }
@@ -224,6 +254,10 @@ const deleteUser = (req, res) => {
   });
 };
 
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// 3) ROUTES
+//
 // ////// GET ALL TOURS -> GET method
 // // http://127.0.0.1:3000/api/v1/tours
 // app.get('/api/v1/tours', getAllTours);
@@ -296,8 +330,10 @@ app
   .patch(updateUser)
   .delete(deleteUser);
 
-////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// 4) START SERVER
+//
 const port = 3000;
 // For connections on the specified host and port.
 // http://127.0.0.1:3000
