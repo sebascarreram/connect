@@ -15,6 +15,7 @@ const app = express();
 // status >= 200 // green
 // e.g:
 // GET /api/v1/tours 200 5.674 ms - 8772 => 200 is color green in terminal
+// GET /api/v1/tours/1s 404 0.808 ms - 40 => 404 is color yellow in terminal
 // DELETE /api/v1/tours/103 404 0.408 ms - 40 => 404 is color yellow in terminal
 app.use(morgan('dev'));
 //
@@ -256,7 +257,9 @@ const deleteUser = (req, res) => {
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
-// 3) ROUTES
+// There is two ways for routes and B) is better because to save space and easier to read
+//
+// 3-A) ROUTES
 //
 // ////// GET ALL TOURS -> GET method
 // // http://127.0.0.1:3000/api/v1/tours
@@ -304,31 +307,42 @@ const deleteUser = (req, res) => {
 // // id = 3, it's selected for delete a data
 // app.delete('/api/v1/users/:id', deleteUser);
 
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// 3-B) ROUTES
+//
 //////////////
 /////// Tours
-app
-  .route('/api/v1/tours')
+
+const tourRouter = express.Router();
+const userRouter = express.Router();
+
+tourRouter
+  .route('/')
   .get(getAllTours)
   .post(createTour);
 
-app
-  .route('/api/v1/tours/:id')
+tourRouter
+  .route('/:id')
   .get(getTour)
   .patch(udpateTour)
   .delete(deleteTour);
 
 //////////////
 /////// Users
-app
-  .route('/api/v1/users')
+userRouter
+  .route('/')
   .get(getAllUsers)
   .post(createUser);
 
-app
-  .route('/api/v1/users/:id')
+userRouter
+  .route('/:id')
   .get(getUser)
   .patch(updateUser)
   .delete(deleteUser);
+
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
