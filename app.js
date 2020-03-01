@@ -24,6 +24,8 @@ app.use(morgan('dev')); // ⬆️
 // for application/json
 app.use(express.json());
 
+app.use(express.static(`${__dirname}/public`));
+
 // Test, how to works 'next()'
 app.use((req, res, next) => {
   console.log('Hello from middleware ♥️');
