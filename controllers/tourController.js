@@ -19,6 +19,17 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
+// Check if name or price is missing, send error when is missing
+exports.checkBody = (req, res, next) => {
+  if (!req.body.name || !req.body.price) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Required name or price'
+    });
+  }
+  next();
+};
+
 //////
 // GET ALL TOURS -> GET method
 exports.getAllTours = (req, res) => {
