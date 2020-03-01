@@ -19,11 +19,12 @@ const app = express();
 // GET /api/v1/tours 200 5.674 ms - 8772 => 200 is color green in terminal
 // GET /api/v1/tours/1s 404 0.808 ms - 40 => 404 is color yellow in terminal
 // DELETE /api/v1/tours/103 404 0.408 ms - 40 => 404 is color yellow in terminal
-app.use(morgan('dev'));
+app.use(morgan('dev')); // ⬆️
 //
 // for application/json
 app.use(express.json());
 
+// Test, how to works 'next()'
 app.use((req, res, next) => {
   console.log('Hello from middleware ♥️');
   next();
@@ -33,8 +34,8 @@ app.use((req, res, next) => {
 ////////////////////////////////////////////////////////////////////////
 // 2) ROUTE HANDLERS
 
-// in router/tourRoutes.js
-// in router/userRoutes.js
+// in routes/tourRoutes.js
+// in routes/userRoutes.js
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
@@ -94,10 +95,5 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
-
-////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////
-// 4) START SERVER
-//
 
 module.exports = app;

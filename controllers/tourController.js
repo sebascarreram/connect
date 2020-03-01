@@ -5,6 +5,20 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
+exports.checkID = (req, res, next, val) => {
+  console.log(`Tour id is: ${val}`);
+
+  // if (req.params.id * 1 > tours.length || req.params.id !== undefined) {
+  if (req.params.id * 1 > tours.length) {
+    // status 404 is NOT FOUND
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID'
+    });
+  }
+  next();
+};
+
 //////
 // GET ALL TOURS -> GET method
 exports.getAllTours = (req, res) => {
@@ -28,14 +42,15 @@ exports.getTour = (req, res) => {
   // Array.prototype.find() is returns the value of the first element in the provided array or read https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
   const tour = tours.find(el => el.id === id);
 
+  //////
   // If there isn't tour found or undefined so it's FALSE, to convert to TRUE because it's boolean
-  if (!tour) {
-    // status 404 is NOT FOUND
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID'
-    });
-  }
+  // if (!tour) {
+  //   // status 404 is NOT FOUND
+  //   return res.status(404).json({
+  //     status: 'fail',
+  //     message: 'Invalid ID'
+  //   });
+  // }
 
   // status 200 is succeeded
   res.status(200).json({
@@ -75,13 +90,13 @@ exports.createTour = (req, res) => {
 //////
 // Update a tour by id -> PATCH method
 exports.udpateTour = (req, res) => {
-  if (req.params.id * 1 > tours.length) {
-    // status 404 is NOT FOUND
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID'
-    });
-  }
+  // if (req.params.id * 1 > tours.length) {
+  //   // status 404 is NOT FOUND
+  //   return res.status(404).json({
+  //     status: 'fail',
+  //     message: 'Invalid ID'
+  //   });
+  // }
 
   // status 200 is success
   res.status(200).json({
@@ -95,13 +110,13 @@ exports.udpateTour = (req, res) => {
 //////
 // Delete a tour by id -> DELETE method
 exports.deleteTour = (req, res) => {
-  if (req.params.id * 1 > tours.length) {
-    // status 404 is NOT FOUND
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID'
-    });
-  }
+  // if (req.params.id * 1 > tours.length) {
+  //   // status 404 is NOT FOUND
+  //   return res.status(404).json({
+  //     status: 'fail',
+  //     message: 'Invalid ID'
+  //   });
+  // }
 
   // status 204 is NO CONTENT to send for this request, but the headers may be useful.
   res.status(204).json({
