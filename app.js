@@ -19,7 +19,12 @@ const app = express();
 // GET /api/v1/tours 200 5.674 ms - 8772 => 200 is color green in terminal
 // GET /api/v1/tours/1s 404 0.808 ms - 40 => 404 is color yellow in terminal
 // DELETE /api/v1/tours/103 404 0.408 ms - 40 => 404 is color yellow in terminal
-app.use(morgan('dev')); // ⬆️
+// console.log(process.env.NODE_ENV);
+
+// Only for development, NOT production
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev')); // ⬆️
+}
 //
 // for application/json
 app.use(express.json());
@@ -29,6 +34,8 @@ app.use(express.static(`${__dirname}/public`));
 // Test, how to works 'next()'
 app.use((req, res, next) => {
   console.log('Hello from middleware ♥️');
+  // next() => Next middleware after execut here, not problem BUT if there's error or missing something.
+  // It should to be a 'return'  with or without callback
   next();
 });
 
@@ -36,12 +43,12 @@ app.use((req, res, next) => {
 ////////////////////////////////////////////////////////////////////////
 // 2) ROUTE HANDLERS
 
-// in routes/tourRoutes.js
-// in routes/userRoutes.js
+// in controllers/tourController.js
+// in controllers/userContoller.js
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
-// There is two ways for routes and B) is better because to save space and easier to read
+// There is two ways for routes and B) it's better because to save space and easier to read
 //
 // 3-A) ROUTES
 //
@@ -94,7 +101,10 @@ app.use((req, res, next) => {
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 // 3-B) ROUTES
-
+//
+// in routes/tourRoutes.js
+// in routes/userRoutes.js
+//
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
