@@ -4,7 +4,7 @@
   "description": "How to work mongoose with mongoDB & NodeJS and expressJS with NodeJS",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon server.js",
+    "start": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js"
   },
   "repository": {
@@ -21,6 +21,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.9.4",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
